@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.translate-z-0 {
+  transform: translateZ(0px);
+}
+
+body #root {
+  @apply w-full h-screen bg-site bg-cover bg-no-repeat relative text-slate-50;
+}
+
+.h1 {
+  @apply text-[35px] leading-tight md:text-[60px] md:leading-[1.3] mb-8 font-semibold;
+}
+
+.h2 {
+  @apply text-[35px] leading-tight md:text-[54px] md:leading-[1.3] mb-4 font-semibold;
+}
