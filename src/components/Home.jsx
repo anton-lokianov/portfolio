@@ -30,7 +30,7 @@ const Home = () => {
             engineering. My passion lies in weaving together cutting-edge
             technologies,
           </motion.p>
-          <div className="flex justify-center xl:hidden relative">
+          <div className="flex justify-center xl:hidden relative z-30">
             <ProjectBtn />
           </div>
           <motion.div
@@ -44,8 +44,10 @@ const Home = () => {
         </div>
       </div>
       <div className="w-[1200px] h-full absolute right-0 bottom-0">
-        <div className="bg-none xl:bg-explosion xl:bg-cover xl:bg-right xl:bg-no-repeat w-full h-full absolute mix-blend-color-dodge translate-z-0"></div>
+        <div className="bg-none xl:bg-explosion xl:bg-cover xl:bg-right xl:bg-no-repeat w-full h-full absolute mix-blend-color-dodge translate-z-0">
+        </div>
         {/* <ParticlesContainer /> */}
+        
         <motion.div
           variants={fadeIn("up", 0.5)}
           initial="hidden"
@@ -53,7 +55,7 @@ const Home = () => {
           exit="hidden"
           transition={{ duration: 0.1, ease: "easeInOut" }}
           className="w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-0 lg:right-[8%]">
-          {/* <Avatar /> */}
+          <Avatar />
         </motion.div>
       </div>
     </div>

@@ -5,13 +5,13 @@ const Socials = () => {
     <div className="flex items-center gap-x-5 text-xl">
       <a
         href="https://www.linkedin.com/in/anton-lokianov/"
-        target="_blank noopener noreferrer"
+        target="_blank "
         className="hover:text-accent transition-all duration-300">
         <FaLinkedin />
       </a>
       <a
         href="https://github.com/anton-lokianov"
-        target="_blank noopener noreferrer"
+        target="_blank "
         className="hover:text-accent transition-all duration-300">
         <FaGithub />
       </a>
