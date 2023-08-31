@@ -1,4 +1,3 @@
-import Avatar from "./Avatar";
 import Circles from "./Circles";
 import { motion } from "framer-motion";
 import { fadeIn } from "../utils/variants";
