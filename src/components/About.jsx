@@ -48,7 +48,7 @@ const About = () => {
             <div className="flex gap-x-5 gap-y-3 flex-wrap mt-5 justify-center text-white">
               {aboutData[0].skills.map((skill, index) => (
                 <div
-                  className="xl:text-8xl md:text-3xl xs:text-2xl flex flex-col items-center gap-y-1"
+                  className="xl:text-8xl md:text-3xl xs:text-2xl flex flex-col items-center gap-y-1 hover:transform hover:scale-110 transition-all duration-300"
                   key={index}>
                   {skill.icon}
                   <div className="xl:text-sm">{skill.name}</div>
