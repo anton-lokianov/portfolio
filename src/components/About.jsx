@@ -1,18 +1,26 @@
+import React from "react";
 import Circles from "./Circles";
 import { motion } from "framer-motion";
 import { fadeIn } from "../utils/variants";
 import { aboutData } from "../utils/constants";
+import { useInView } from "react-intersection-observer";
 
 const About = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+  });
+
   return (
-    <div className="h-full bg-primary/30 py-32 text-center xl:text-left">
+    <div
+      ref={ref}
+      className="h-full bg-primary/30 py-32 text-center xl:text-left">
       <Circles />
       <div className="container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6">
         <div className="flex-1 flex flex-col justify-center">
           <motion.h2
             variants={fadeIn("right", 0.2)}
             initial="hidden"
-            animate="show"
+            animate={inView ? "show" : "hidden"} // Play animation if in view, reset otherwise
             exit="hidden"
             className="h2">
             Captivating <span className="text-accent">stories</span> birth
@@ -21,7 +29,7 @@ const About = () => {
           <motion.p
             variants={fadeIn("right", 0.4)}
             initial="hidden"
-            animate="show"
+            animate={inView ? "show" : "hidden"} // Play animation if in view, reset otherwise
             exit="hidden"
             className="max-w-[500px] mx-auto xl:mx-0 xl:mb-6 px-2 xl:px-0">
             I began my journey into web development and discovered passion for
@@ -34,7 +42,7 @@ const About = () => {
         <motion.div
           variants={fadeIn("right", 0.6)}
           initial="hidden"
-          animate="show"
+          animate={inView ? "show" : "hidden"} // Play animation if in view, reset otherwise
           exit="hidden"
           className="flex flex-col w-full xl:max-w-[48%] h-[480px]">
           <div className="flex mx-auto flex-col text-center xl:mx-0">

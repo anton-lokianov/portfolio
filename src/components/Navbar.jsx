@@ -1,8 +1,7 @@
-import { HiHome } from "react-icons/hi2";
-import { FaUser } from "react-icons/fa";
-import { FaProjectDiagram } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { HiHome } from "react-icons/hi";
+import { FaUser, FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
-import { useState, useEffect } from "react";
 
 const navData = [
   { name: "home", path: "#home", icon: <HiHome /> },
@@ -19,14 +18,37 @@ const Navbar = () => {
       setCurrentHash(window.location.hash);
     };
 
-    // Listen for hash changes
+    const observers = []; // Array to hold the observers
+
+    navData.forEach((navItem) => {
+      const element = document.querySelector(navItem.path);
+
+      // Ensure the element exists before observing
+      if (element) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setCurrentHash(navItem.path);
+              window.location.hash = navItem.path; // Update the URL hash
+            }
+          },
+          {
+            threshold: 0.5,
+          }
+        );
+
+        observer.observe(element);
+        observers.push(observer); // Add the observer to the array
+      }
+    });
+
     window.addEventListener("hashchange", handleHashChange);
 
-    // Cleanup the event listener when the component is unmounted
     return () => {
+      observers.forEach((observer) => observer.disconnect()); // Disconnect each observer
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, []); // Empty dependency array ensures the effect runs only once
+  }, []);
 
   return (
     <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-30 top-0  w-full xl:w-16 xl:max-w-md xl:h-screen">
@@ -35,7 +57,7 @@ const Navbar = () => {
           <a
             href={navLink.path}
             className={`${
-              navLink.path === currentHash && "text-accent"
+              navLink.path === currentHash ? "text-accent" : ""
             } relative flex items-center group hover:text-accent transition-all duration-300`}
             key={index}>
             <div className="absolute pr-14 right-0 hidden xl:group-hover:flex">
