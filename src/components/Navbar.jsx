@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HiHome } from "react-icons/hi";
 import { FaUser, FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
@@ -12,24 +12,38 @@ const navData = [
 
 const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
+    let scrollTimeout;
+
     const handleHashChange = () => {
       setCurrentHash(window.location.hash);
     };
 
-    const observers = []; // Array to hold the observers
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 100); // After 100ms without scrolling, assume scrolling is done
+    };
+
+    const handleLinkClick = () => {
+      setIsScrolling(true);
+    };
+
+    const observers = [];
 
     navData.forEach((navItem) => {
       const element = document.querySelector(navItem.path);
 
-      // Ensure the element exists before observing
       if (element) {
         const observer = new IntersectionObserver(
           ([entry]) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !isScrolling) {
+              // Check if not scrolling
               setCurrentHash(navItem.path);
-              window.location.hash = navItem.path; // Update the URL hash
+              window.location.hash = navItem.path;
             }
           },
           {
@@ -38,17 +52,24 @@ const Navbar = () => {
         );
 
         observer.observe(element);
-        observers.push(observer); // Add the observer to the array
+        observers.push(observer);
       }
     });
 
     window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("scroll", handleScroll);
+    const links = document.querySelectorAll("nav a");
+    links.forEach((link) => link.addEventListener("click", handleLinkClick));
 
     return () => {
-      observers.forEach((observer) => observer.disconnect()); // Disconnect each observer
+      observers.forEach((observer) => observer.disconnect());
       window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("scroll", handleScroll);
+      links.forEach((link) =>
+        link.removeEventListener("click", handleLinkClick)
+      );
     };
-  }, []);
+  }, [isScrolling]);
 
   return (
     <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-30 top-0  w-full xl:w-16 xl:max-w-md xl:h-screen">
