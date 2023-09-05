@@ -20,7 +20,7 @@ export default {
         site: 'url("./src/assets/site-bg.svg")',
         explosion: 'url("./src/assets/bg-explosion.png")',
         circleStar: 'url("./src/assets/circle-star.svg")',
-        avatar2: 'url("./src/assets/avatar2.png")',
+        avatar2: `url("./src/assets/avatar2.png")`,
       },
     },
     screen: {
