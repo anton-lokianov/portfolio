@@ -2,11 +2,17 @@ import { BsArrowRight } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "./../utils/variants";
 import { useInView } from "react-intersection-observer";
-
+import { useForm, ValidationError } from "@formspree/react";
 const Contact = () => {
   const [ref, inView] = useInView({
     threshold: 0.1,
   });
+  const FORMSPREE_KEY = import.meta.env.VITE_FORMSPREE_KEY;
+  const [submit, handleSubmit] = useForm(FORMSPREE_KEY);
+
+  if (submit.succeeded) {
+    return;
+  }
 
   return (
     <div ref={ref} className="h-full bg-primary/30">
@@ -21,18 +27,40 @@ const Contact = () => {
             Contact <span className="text-accent">me.</span>
           </motion.h2>
           <motion.form
+            onSubmit={handleSubmit}
             className="flex-1 flex flex-col gap-6 w-full mx-auto"
             variants={fadeIn("up", 0.4)}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
             exit="hidden">
             <div className="flex gap-x-6 w-full">
-              <input type="text" placeholder="name" className="input" />
-              <input type="text" placeholder="email" className="input" />
+              <input
+                type="text"
+                placeholder="name"
+                name="name"
+                className="input"
+              />
+              <input
+                type="text"
+                placeholder="email"
+                name="email"
+                className="input"
+              />
             </div>
-            <input type="text" placeholder="subject" className="input" />
-            <textarea placeholder="message" className="textarea"></textarea>
-            <button className="btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group">
+            <input
+              type="text"
+              placeholder="subject"
+              name="subject"
+              className="input"
+            />
+            <textarea
+              placeholder="message"
+              name="message"
+              className="textarea"></textarea>
+            <button
+              disabled={submit.submitting}
+              type="submit"
+              className="btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group">
               <span className="group-hover:-translate-y-[120%] group-hover:opacity-0 transition-all duration-500">
                 Let's talk
               </span>

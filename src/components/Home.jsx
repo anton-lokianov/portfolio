@@ -19,8 +19,8 @@ const Home = () => {
             animate={inView ? "show" : "hidden"}
             exit="hidden"
             className="h1">
-            Transforming ideas <br /> into {""}
-            <span className="text-accent">Digital Reality</span>
+            Bringing Ideas <br /> to {""}
+            <span className="text-accent">Digital Life</span>
           </motion.h1>
           <motion.p
             variants={fadeIn("down", 0.3)}

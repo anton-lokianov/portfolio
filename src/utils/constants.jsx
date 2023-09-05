@@ -15,6 +15,7 @@ import {
   SiJavascript,
   SiMongodb,
   SiMysql,
+  SiMui,
 } from "react-icons/si";
 
 export const aboutData = [
@@ -35,6 +36,7 @@ export const aboutData = [
       { name: "jQuery", icon: <SiJquery /> },
       { name: "Express", icon: <SiExpress /> },
       { name: "Tailwind", icon: <SiTailwindcss /> },
+      { name: "Material UI", icon: <SiMui /> },
     ],
   },
 ];
