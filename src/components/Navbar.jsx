@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { HiHome } from "react-icons/hi";
 import { FaUser, FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
@@ -12,7 +12,7 @@ const navData = [
 
 const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const isScrollingRef = useRef(false);
 
   useEffect(() => {
     let scrollTimeout;
@@ -24,12 +24,12 @@ const Navbar = () => {
     const handleScroll = () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
+        isScrollingRef.current = false;
       }, 100); // After 100ms without scrolling, assume scrolling is done
     };
 
     const handleLinkClick = () => {
-      setIsScrolling(true);
+      isScrollingRef.current = true;
     };
 
     const observers = [];
@@ -40,7 +40,7 @@ const Navbar = () => {
       if (element) {
         const observer = new IntersectionObserver(
           ([entry]) => {
-            if (entry.isIntersecting && !isScrolling) {
+            if (entry.isIntersecting && !isScrollingRef.current) {
               // Check if not scrolling
               setCurrentHash(navItem.path);
               window.location.hash = navItem.path;
@@ -69,7 +69,7 @@ const Navbar = () => {
         link.removeEventListener("click", handleLinkClick)
       );
     };
-  }, [isScrolling]);
+  }, []);
 
   return (
     <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-30 top-0  w-full xl:w-16 xl:max-w-md xl:h-screen">
@@ -97,4 +97,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

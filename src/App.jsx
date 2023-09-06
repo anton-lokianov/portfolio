@@ -1,10 +1,12 @@
-import Contact from "./components/Contact";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Projects from "./components/Projects";
-import About from "./components/About";
-import TopLeftImage from "./components/TopLeftImage";
+import React, { lazy } from "react";
+
+const TopLeftImage = lazy(() => import("./components/TopLeftImage"));
+const Navbar = lazy(() => import("./components/Navbar"));
+const Header = lazy(() => import("./components/Header"));
+const Home = lazy(() => import("./components/Home"));
+const About = lazy(() => import("./components/About"));
+const Projects = lazy(() => import("./components/Projects"));
+const Contact = lazy(() => import("./components/Contact"));
 
 const App = () => {
   return (
