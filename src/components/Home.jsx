@@ -47,7 +47,7 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-      <div className="w-full h-full absolute -right-0 bottom-0">
+      <div className="xl:w-[60%] sm:w-full h-full absolute -right-0 bottom-0">
         <ParticlesContainer />
         <motion.div
           variants={fadeIn("up", 0.5)}
@@ -55,7 +55,7 @@ const Home = () => {
           animate={inView ? "show" : "hidden"}
           exit="hidden"
           transition={{ duration: 0.1, ease: "easeInOut" }}
-          className="bg-none xl:bg-avatar2 xl:bg-cover xl:bg-right xl:bg-no-repeat w-full h-full mix-blend-color-dodge translate-z-0"></motion.div>
+          className="bg-none xl:bg-avatar2 xl:bg-cover xl:bg-center xl:bg-no-repeat w-full h-full mix-blend-color-dodge translate-z-0"></motion.div>
       </div>
     </div>
   );

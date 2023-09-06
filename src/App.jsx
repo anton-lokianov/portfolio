@@ -1,5 +1,4 @@
-import React, { lazy } from "react";
-
+import { lazy } from "react";
 const TopLeftImage = lazy(() => import("./components/TopLeftImage"));
 const Navbar = lazy(() => import("./components/Navbar"));
 const Header = lazy(() => import("./components/Header"));
@@ -19,17 +18,17 @@ const App = () => {
       </div>
       <div
         id="about"
-        className="h-screen bg-site bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
         <About />
       </div>
       <div
         id="projects"
-        className="h-screen bg-site bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
         <Projects />
       </div>
       <div
         id="contact"
-        className="h-screen bg-site bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
         <Contact />
       </div>
     </>
