@@ -1,4 +1,4 @@
-import image from "../assets/circles.png";
+import image from "../../public/circles.png";
 
 const Circles = () => {
   return (

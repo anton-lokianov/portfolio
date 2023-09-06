@@ -1,4 +1,4 @@
-import image from "../assets/anton-lokianov-logo.png";
+import image from "../../public/anton-lokianov-logo.png";
 import Socials from "./Socials";
 
 const Header = () => {

@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import TopLeftImage from "./components/TopLeftImage";
-import bgImage from "./assets/site-bg.svg";
 
 const App = () => {
   return (

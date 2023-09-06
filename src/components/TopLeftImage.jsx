@@ -1,4 +1,4 @@
-import image from "../assets/top-left-img.png";
+import image from "../../public/top-left-img.png";
 
 const TopLeftImage = () => {
   return (

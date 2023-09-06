@@ -1,4 +1,4 @@
-import image from "../assets/bulb.png";
+import image from "../../public/bulb.png";
 
 const Bulb = () => {
   return (

@@ -1,5 +1,5 @@
 import { HiArrowRight } from "react-icons/hi2";
-import image from "../assets/rounded-text.png";
+import image from "../../public/rounded-text.png";
 
 const ProjectBtn = () => {
   return (
