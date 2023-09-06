@@ -47,7 +47,7 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-      <div className="xl:w-[60%] sm:w-full h-full absolute -right-0 bottom-0">
+      <div className="w-full sm:w-full md:w-full xl:w-[60%] lg:w-[60%] h-full absolute -right-0 bottom-0">
         <ParticlesContainer />
         <motion.div
           variants={fadeIn("up", 0.5)}
