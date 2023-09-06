@@ -28,9 +28,7 @@ const Projects = () => {
               animate={inView ? "show" : "hidden"}
               exit="hidden"
               className="mb-4 max-w-[400px] mx-auto lg:mx-0">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-              doloremque quaerat velit, exercitationem est incidunt! Ex amet
-              autem voluptate,
+              Take a moment to browse through my curated selection of projects. I invite you to explore and see my code
             </motion.p>
           </div>
           <motion.div
