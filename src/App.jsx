@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import TopLeftImage from "./components/TopLeftImage";
+import bgImage from "./assets/site-bg.svg";
 
 const App = () => {
   return (
@@ -17,17 +18,20 @@ const App = () => {
       </div>
       <div
         id="about"
-        className="h-screen bg-site bg-cover bg-no-repeat relative">
+        style={{ backgroundImage: `url(${bgImage})` }}
+        className="h-screen bg-cover bg-no-repeat relative">
         <About />
       </div>
       <div
         id="projects"
-        className="h-screen  bg-site bg-cover bg-no-repeat relative">
+        style={{ backgroundImage: `url(${bgImage})` }}
+        className="h-screen bg-cover bg-no-repeat relative">
         <Projects />
       </div>
       <div
         id="contact"
-        className="h-screen bg-site bg-cover bg-no-repeat relative">
+        style={{ backgroundImage: `url(${bgImage})` }}
+        className="h-screen bg-cover bg-no-repeat relative">
         <Contact />
       </div>
     </>
