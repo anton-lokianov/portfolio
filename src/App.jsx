@@ -18,20 +18,17 @@ const App = () => {
       </div>
       <div
         id="about"
-        style={{ backgroundImage: `url(${bgImage})` }}
-        className="h-screen bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative">
         <About />
       </div>
       <div
         id="projects"
-        style={{ backgroundImage: `url(${bgImage})` }}
-        className="h-screen bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative">
         <Projects />
       </div>
       <div
         id="contact"
-        style={{ backgroundImage: `url(${bgImage})` }}
-        className="h-screen bg-cover bg-no-repeat relative">
+        className="h-screen bg-site bg-cover bg-no-repeat relative">
         <Contact />
       </div>
     </>
