@@ -12,18 +12,22 @@ const projectSlider = {
         {
           title: "MERN store project",
           path: "/storeproject.png",
+          linkPath:"https://github.com/anton-lokianov/store-project",
         },
         {
           title: "MERN media project",
           path: "/mediaproject.png",
+          linkPath:"",
         },
         {
           title: "crypto api project",
           path: "/cryptoproject.png",
+          linkPath:"https://github.com/anton-lokianov/crypto-project-jb",
         },
         {
           title: "Fullstack vacation project",
           path: "/vacationproject.png",
+          linkPath:"https://github.com/anton-lokianov/fullStack-project-johnbryce-lastProject",
         },
       ],
     },
@@ -73,9 +77,11 @@ const ProjectSlider = () => {
                       <div className="translate-y-[500%] group-hover:translate-y-0 transition-all duration-300 delay-150">
                         review code
                       </div>
+                      <a href={image.linkPath} target="_blank" rel="noopener noreferrer"> 
                       <div className="text-xl translate-y-[500%] group-hover:translate-y-0 transition-all duration-300 delay-200">
                         <BsArrowRight  />
                       </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -90,3 +96,4 @@ const ProjectSlider = () => {
 
 
 export default ProjectSlider;
+

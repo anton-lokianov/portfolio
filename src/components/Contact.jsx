@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "./../utils/variants";
 import { useInView } from "react-intersection-observer";
 import { useForm, ValidationError } from "@formspree/react";
+
 const Contact = () => {
   const [ref, inView] = useInView({
     threshold: 0.1,
@@ -10,9 +11,10 @@ const Contact = () => {
   const FORMSPREE_KEY = import.meta.env.VITE_FORMSPREE_KEY;
   const [submit, handleSubmit] = useForm(FORMSPREE_KEY);
 
-  if (submit.succeeded) {
-    return;
-  }
+ 
+    if (submit.succeeded) {
+      return
+    }
 
   return (
     <div ref={ref} className="h-full bg-primary/30">
@@ -39,12 +41,14 @@ const Contact = () => {
                 placeholder="name"
                 name="name"
                 className="input"
+                required
               />
               <input
                 type="text"
                 placeholder="email"
                 name="email"
                 className="input"
+                required
               />
             </div>
             <input
@@ -52,10 +56,12 @@ const Contact = () => {
               placeholder="subject"
               name="subject"
               className="input"
+              required
             />
             <textarea
               placeholder="message"
               name="message"
+              required
               className="textarea"></textarea>
             <button
               disabled={submit.submitting}
