@@ -18,6 +18,7 @@ export default {
       },
       backgroundImage: {
         site: 'url("/site-bg.svg")',
+        site2: 'url("/bg-site2.jpg")',
         circleStar: 'url("/circle-star.svg")',
         avatar2: 'url("/avatar2.png")',
       },

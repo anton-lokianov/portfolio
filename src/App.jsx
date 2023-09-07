@@ -42,7 +42,7 @@ const App = () => {
       </div>
       <div
         id="contact"
-        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
+        className="h-screen bg-site2 bg-cover bg-no-repeat relative w-full">
         <Contact />
       </div>
     </Suspense>
