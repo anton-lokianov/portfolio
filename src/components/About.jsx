@@ -9,16 +9,20 @@ const About = () => {
   const [ref, inView] = useInView({
     threshold: 0.1,
   });
+  const [skills, setSkills] = useState(aboutData[0].skills);
 
   const [draggedItem, setDraggedItem] = useState(null);
 
   const handleDrop = (index) => {
     if (draggedItem === null) return;
-    const newSkills = [...aboutData[0].skills];
-    const draggedSkill = newSkills[draggedItem];
-    newSkills.splice(draggedItem, 1);
-    newSkills.splice(index, 0, draggedSkill);
-    aboutData[0].skills = newSkills;
+    const newSkills = [...skills];
+
+    [newSkills[draggedItem], newSkills[index]] = [
+      newSkills[index],
+      newSkills[draggedItem],
+    ];
+
+    setSkills(newSkills);
     setDraggedItem(null);
   };
 
@@ -71,10 +75,12 @@ const About = () => {
               </div>
             ))}
             <div className="flex gap-x-5 gap-y-3 flex-wrap mt-5 justify-center text-white">
-              {aboutData[0].skills.map((skill, index) => (
+              {skills.map((skill, index) => (
                 <div
                   draggable
-                  onDragOver={(e) => e.preventDefault()}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                  }}
                   onDrag={() => setDraggedItem(index)}
                   onDrop={() => handleDrop(index)}
                   className="xl:text-8xl md:text-3xl xs:text-2xl flex flex-col items-center gap-y-1 hover:transform hover:scale-110 transition-all duration-300 cursor-pointer"
