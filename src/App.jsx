@@ -19,11 +19,13 @@ const App = () => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="text-accent text-4xl font-bold">
+            className="text-accent text-4xl font-bold"
+          >
             Loading...
           </motion.div>
         </div>
-      }>
+      }
+    >
       <div id="home" className="h-screen">
         <TopLeftImage />
         <Navbar />
@@ -32,17 +34,20 @@ const App = () => {
       </div>
       <div
         id="about"
-        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full"
+      >
         <About />
       </div>
       <div
         id="projects"
-        className="h-screen bg-site bg-cover bg-no-repeat relative w-full">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full"
+      >
         <Projects />
       </div>
       <div
         id="contact"
-        className="h-screen bg-site2 bg-cover bg-no-repeat relative w-full">
+        className="h-screen bg-site bg-cover bg-no-repeat relative w-full"
+      >
         <Contact />
       </div>
     </Suspense>

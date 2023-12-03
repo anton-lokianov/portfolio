@@ -17,8 +17,7 @@ export default {
         "spin-slow": "spin 6s linear infinite",
       },
       backgroundImage: {
-        site: 'url("/site-bg.svg")',
-        site2: 'url("/bg-site2.jpg")',
+        site: 'url("/bg-site5.jpg")',
         circleStar: 'url("/circle-star.svg")',
         avatar2: 'url("/avatar2.png")',
       },

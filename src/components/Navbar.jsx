@@ -12,62 +12,35 @@ const navData = [
 
 const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
-  const isScrollingRef = useRef(false);
 
   useEffect(() => {
-    let scrollTimeout;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const newHash = `#${entry.target.id}`;
+            setCurrentHash(newHash);
+            history.replaceState(null, null, newHash); // Update URL without scrolling
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    navData.forEach((navItem) => {
+      const element = document.querySelector(navItem.path);
+      if (element) observer.observe(element);
+    });
 
     const handleHashChange = () => {
       setCurrentHash(window.location.hash);
     };
 
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 100); // After 100ms without scrolling, assume scrolling is done
-    };
-
-    const handleLinkClick = () => {
-      isScrollingRef.current = true;
-    };
-
-    const observers = [];
-
-    navData.forEach((navItem) => {
-      const element = document.querySelector(navItem.path);
-
-      if (element) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting && !isScrollingRef.current) {
-              // Check if not scrolling
-              setCurrentHash(navItem.path);
-              window.location.hash = navItem.path;
-            }
-          },
-          {
-            threshold: 0.5,
-          }
-        );
-
-        observer.observe(element);
-        observers.push(observer);
-      }
-    });
-
     window.addEventListener("hashchange", handleHashChange);
-    window.addEventListener("scroll", handleScroll);
-    const links = document.querySelectorAll("nav a");
-    links.forEach((link) => link.addEventListener("click", handleLinkClick));
 
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      observer.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
-      window.removeEventListener("scroll", handleScroll);
-      links.forEach((link) =>
-        link.removeEventListener("click", handleLinkClick)
-      );
     };
   }, []);
 
@@ -80,7 +53,8 @@ const Navbar = () => {
             className={`${
               navLink.path === currentHash ? "text-accent" : ""
             } relative flex items-center group hover:text-accent transition-all duration-300`}
-            key={index}>
+            key={index}
+          >
             <div className="absolute pr-14 right-0 hidden xl:group-hover:flex">
               <div className="bg-white relative flex text-primary items-center p-[6px] rounded-[3px]">
                 <div className="text-[12px] leading-none font-semibold capitalize">
@@ -97,5 +71,4 @@ const Navbar = () => {
   );
 };
 
-const MemoizedNavbar = React.memo(Navbar);
-export default MemoizedNavbar;
+export default Navbar;
