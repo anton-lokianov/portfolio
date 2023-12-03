@@ -12,12 +12,12 @@ const navData = [
 
 const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
-  const [historyStack, setHistoryStack] = useState([window.location.hash]);
 
   useEffect(() => {
     // Update Hash Without Causing Scroll
     const updateHash = (newHash) => {
-      history.replaceState(null, null, newHash);
+      // Update the URL without adding a new entry to the history stack
+      window.history.replaceState({}, "", newHash);
       setCurrentHash(newHash);
     };
 
@@ -26,7 +26,6 @@ const Navbar = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           updateHash(`#${entry.target.id}`);
-          setHistoryStack((prevStack) => [...prevStack, `#${entry.target.id}`]);
         }
       });
     };
@@ -36,39 +35,34 @@ const Navbar = () => {
       threshold: 0.5,
     });
 
-    // Observing Each Nav Item
+    // Observing each element corresponding to nav items
     navData.forEach((navItem) => {
       const element = document.querySelector(navItem.path);
       if (element) observer.observe(element);
     });
 
-    // Cleanup
+    // Cleanup function
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    // Custom Back Navigation Handling
-    const handleBackNavigation = () => {
-      setHistoryStack((prevStack) => {
-        if (prevStack.length > 1) {
-          // Go back to previous hash
-          const newStack = prevStack.slice(0, -1);
-          const newHash = newStack[newStack.length - 1];
-          history.replaceState(null, null, newHash);
-          setCurrentHash(newHash);
-          return newStack;
-        } else {
-          // Exit the page (or any other logic you want)
-          window.history.back();
-        }
-      });
+    // Back button handler
+    const handleBackButton = (e) => {
+      // Check if the current state is our custom state
+      if (window.history.state && window.history.state.customNavigation) {
+        e.preventDefault(); // Prevent the default behavior
+        window.history.back(); // Go back in history, which should leave the page
+      }
     };
 
-    window.addEventListener("popstate", handleBackNavigation);
+    window.addEventListener("popstate", handleBackButton);
 
-    // Cleanup
+    // Push a state to the history stack marking our custom navigation
+    window.history.replaceState({ customNavigation: true }, "");
+
+    // Cleanup function
     return () => {
-      window.removeEventListener("popstate", handleBackNavigation);
+      window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
 
