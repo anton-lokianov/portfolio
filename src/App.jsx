@@ -1,31 +1,14 @@
-import { lazy, Suspense } from "react";
-const TopLeftImage = lazy(() => import("./components/TopLeftImage"));
-const Navbar = lazy(() => import("./components/Navbar"));
-const Header = lazy(() => import("./components/Header"));
-const Home = lazy(() => import("./components/Home"));
-const About = lazy(() => import("./components/About"));
-const Projects = lazy(() => import("./components/Projects"));
-const Contact = lazy(() => import("./components/Contact"));
-import { motion } from "framer-motion";
-import { fadeIn } from "./utils/variants";
+import TopLeftImage from "./components/TopLeftImage";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
 
 const App = () => {
   return (
-    <Suspense
-      fallback={
-        <div className="h-screen flex items-center justify-center">
-          <motion.div
-            variants={fadeIn("down", 0.2)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="text-accent text-4xl font-bold"
-          >
-            Loading...
-          </motion.div>
-        </div>
-      }
-    >
+    <>
       <div id="home" className="h-screen">
         <TopLeftImage />
         <Navbar />
@@ -50,7 +33,7 @@ const App = () => {
       >
         <Contact />
       </div>
-    </Suspense>
+    </>
   );
 };
 
