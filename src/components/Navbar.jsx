@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { HiHome } from "react-icons/hi";
 import { FaUser, FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
@@ -43,27 +43,6 @@ const Navbar = () => {
 
     // Cleanup function
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    // Back button handler
-    const handleBackButton = (e) => {
-      // Check if the current state is our custom state
-      if (window.history.state && window.history.state.customNavigation) {
-        e.preventDefault(); // Prevent the default behavior
-        window.history.back(); // Go back in history, which should leave the page
-      }
-    };
-
-    window.addEventListener("popstate", handleBackButton);
-
-    // Push a state to the history stack marking our custom navigation
-    window.history.replaceState({ customNavigation: true }, "");
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);
-    };
   }, []);
 
   return (
