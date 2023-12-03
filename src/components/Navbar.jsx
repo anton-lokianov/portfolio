@@ -12,19 +12,21 @@ const navData = [
 
 const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const [historyStack, setHistoryStack] = useState([window.location.hash]);
 
   useEffect(() => {
-    // Function to update the hash in the URL without causing a scroll
+    // Update Hash Without Causing Scroll
     const updateHash = (newHash) => {
       history.replaceState(null, null, newHash);
       setCurrentHash(newHash);
     };
 
-    // IntersectionObserver callback
+    // IntersectionObserver Callback
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           updateHash(`#${entry.target.id}`);
+          setHistoryStack((prevStack) => [...prevStack, `#${entry.target.id}`]);
         }
       });
     };
@@ -34,37 +36,41 @@ const Navbar = () => {
       threshold: 0.5,
     });
 
-    // Observing each nav item
+    // Observing Each Nav Item
     navData.forEach((navItem) => {
       const element = document.querySelector(navItem.path);
       if (element) observer.observe(element);
     });
 
-    // Cleanup function
-    return () => {
-      observer.disconnect();
-    };
+    // Cleanup
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    // Hash change event handler
-    const handleHashChange = (e) => {
-      e.preventDefault();
-      const hash = window.location.hash;
-      if (hash !== currentHash) {
-        // Custom logic for handling hash change
-        // This is where you can control the scroll or any other behavior
-        setCurrentHash(hash);
-      }
+    // Custom Back Navigation Handling
+    const handleBackNavigation = () => {
+      setHistoryStack((prevStack) => {
+        if (prevStack.length > 1) {
+          // Go back to previous hash
+          const newStack = prevStack.slice(0, -1);
+          const newHash = newStack[newStack.length - 1];
+          history.replaceState(null, null, newHash);
+          setCurrentHash(newHash);
+          return newStack;
+        } else {
+          // Exit the page (or any other logic you want)
+          window.history.back();
+        }
+      });
     };
 
-    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleBackNavigation);
 
-    // Cleanup function
+    // Cleanup
     return () => {
-      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleBackNavigation);
     };
-  }, [currentHash]);
+  }, []);
 
   return (
     <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-30 top-0  w-full xl:w-16 xl:max-w-md xl:h-screen">
