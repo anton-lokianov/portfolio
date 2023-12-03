@@ -14,35 +14,57 @@ const Navbar = () => {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const newHash = `#${entry.target.id}`;
-            setCurrentHash(newHash);
-            history.replaceState(null, null, newHash); // Update URL without scrolling
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+    // Function to update the hash in the URL without causing a scroll
+    const updateHash = (newHash) => {
+      history.replaceState(null, null, newHash);
+      setCurrentHash(newHash);
+    };
 
+    // IntersectionObserver callback
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          updateHash(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    // Setup IntersectionObserver
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.5,
+    });
+
+    // Observing each nav item
     navData.forEach((navItem) => {
       const element = document.querySelector(navItem.path);
       if (element) observer.observe(element);
     });
 
-    const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
+    // Cleanup function
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Hash change event handler
+    const handleHashChange = (e) => {
+      e.preventDefault();
+      const hash = window.location.hash;
+      if (hash !== currentHash) {
+        // Custom logic for handling hash change
+        // This is where you can control the scroll or any other behavior
+        setCurrentHash(hash);
+      }
     };
 
     window.addEventListener("hashchange", handleHashChange);
 
+    // Cleanup function
     return () => {
-      observer.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, []);
+  }, [currentHash]);
 
   return (
     <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-30 top-0  w-full xl:w-16 xl:max-w-md xl:h-screen">
